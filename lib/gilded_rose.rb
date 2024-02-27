@@ -1,19 +1,17 @@
 module GildedRose
+
+  DEFAULT_CLASS = Item
+  SPECIALIZED_CLASSES = {
+    'normal'                                              => Normal,
+    'Aged Brie'                                           => Brie,
+    'Backstage passes to a TAFKAL80ETC concert'           => Backstage}
   def self.for(quality, days_remaining)
     klass_for(name).new(quality, days_remaining)
   end
 
   def self.klass_for(name)
-    case name
-    when 'normal'
-      Normal
-    when 'Aged Brie'
-      Brie
-    when 'Sulfuras, Hand of Ragnaros'
-      Item
-    when 'Backstage passes to a TAFKAL80ETC concert'
-      Backstage
-    end
+    (SPECIALIZED_CLASSES[name] || DEFAULT_CLASS).
+    new(quality, days_remaining)
   end
 
   class Item
@@ -46,7 +44,6 @@ module GildedRose
       @quality += 1 if @days_remaining <= 0
     end
   end
-
 
   class Backstage < Item
     def tick
