@@ -10,7 +10,7 @@ module GildedRose
     when 'Aged Brie'
       Brie
     when 'Sulfuras, Hand of Ragnaros'
-      Sulfuras
+      Item
     when 'Backstage passes to a TAFKAL80ETC concert'
       Backstage
     end
@@ -22,9 +22,12 @@ module GildedRose
     def initialize(quality, days_remaining)
       @quality, @days_remaining = quality, days_remaining
     end
+
+    def tick
+    end
   end
 
-  class Normal
+  class Normal < Item
     def tick
       @days_remaining -= 1
       return if @quality == 0
@@ -34,7 +37,7 @@ module GildedRose
     end
   end
 
-  class Brie
+  class Brie < Item
     def tick
       @days_remaining -= 1
       return if @quality >= 50
@@ -44,11 +47,8 @@ module GildedRose
     end
   end
 
-  class Sulfuras
-    def tick
-    end
 
-  class Backstage
+  class Backstage < Item
     def tick
       @days_remaining -= 1
       return    if @quality >= 50
