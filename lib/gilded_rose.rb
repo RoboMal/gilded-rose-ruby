@@ -2,7 +2,7 @@ module GildedRose
   class Item
     attr_reader :name, :quality, :days_remaining
 
-    def initialize(name:, quality:, days_remaining:)
+    def initialize(name, quality, days_remaining)
       @name = name
       @quality = quality
       @days_remaining = days_remaining
@@ -62,6 +62,6 @@ module GildedRose
     'Conjured Mana Cake'                                  => Conjured }
 
   def self.new(name:, quality:, days_remaining:)
-    (SPECIALIZED_CLASSES[name:] || DEFAULT_CLASS).new(name:, quality:, days_remaining:)
+    (SPECIALIZED_CLASSES[name] || DEFAULT_CLASS).new(name, quality, days_remaining)
   end
 end
