@@ -23,7 +23,7 @@ module GildedRose
   end
 
   class Brie < Item
-    def brie_tick
+    def tick
       @days_remaining -= 1
       return if @quality >= 50
 
@@ -62,6 +62,6 @@ module GildedRose
     'Conjured Mana Cake'                                  => Conjured }
 
   def self.new(name:, quality:, days_remaining:)
-    (SPECIALIZED_CLASSES[name:, quality:, days_remaining:] || DEFAULT_CLASS).new(name:, quality:, days_remaining:)
+    (SPECIALIZED_CLASSES[name:] || DEFAULT_CLASS).new(name:, quality:, days_remaining:)
   end
 end
