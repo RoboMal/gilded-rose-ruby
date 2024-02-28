@@ -1,9 +1,11 @@
 module GildedRose
   class Item
-    attr_reader :quality, :days_remaining
+    attr_reader :name, :quality, :days_remaining
 
-    def initialize(quality, days_remaining)
-      @quality, @days_remaining = quality, days_remaining
+    def initialize(name:, quality:, days_remaining:)
+      @name = name
+      @quality = quality
+      @days_remaining = days_remaining
     end
 
     def tick
@@ -54,12 +56,12 @@ module GildedRose
 
   DEFAULT_CLASS = Item
   SPECIALIZED_CLASSES = {
-    'Normal Item'                                              => Normal,
+    'Normal Item'                                         => Normal,
     'Aged Brie'                                           => Brie,
     'Backstage passes to a TAFKAL80ETC concert'           => Backstage,
     'Conjured Mana Cake'                                  => Conjured }
 
-  def self.new(quality, days_remaining)
-    (SPECIALIZED_CLASSES[name] || DEFAULT_CLASS).new(quality, days_remaining)
+  def self.new(name:, quality:, days_remaining:)
+    (SPECIALIZED_CLASSES[name:, quality:, days_remaining:] || DEFAULT_CLASS).new(name:, quality:, days_remaining:)
   end
 end
