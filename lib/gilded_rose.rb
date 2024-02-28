@@ -21,7 +21,7 @@ module GildedRose
   end
 
   class Brie < Item
-    def brie_tick
+    def tick
       @days_remaining -= 1
       return if @quality >= 50
 
@@ -52,19 +52,14 @@ module GildedRose
     end
   end
 
-DEFAULT_CLASS = Item
-SPECIALIZED_CLASSES = {
-  'normal'                                              => Normal,
-  'Aged Brie'                                           => Brie,
-  'Backstage passes to a TAFKAL80ETC concert'           => Backstage
-  'Conjured Mana Cake'                                  => Conjured }
+  DEFAULT_CLASS = Item
+  SPECIALIZED_CLASSES = {
+    'Normal Item'                                              => Normal,
+    'Aged Brie'                                           => Brie,
+    'Backstage passes to a TAFKAL80ETC concert'           => Backstage,
+    'Conjured Mana Cake'                                  => Conjured }
 
-  def self.for(quality, days_remaining)
-    klass_for(name).new(quality, days_remaining)
-  end
-
-  def self.klass_for(name)
+  def self.new(quality, days_remaining)
     (SPECIALIZED_CLASSES[name] || DEFAULT_CLASS).new(quality, days_remaining)
   end
-
 end
