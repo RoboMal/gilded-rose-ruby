@@ -1,19 +1,4 @@
 module GildedRose
-
-  DEFAULT_CLASS = Item
-  SPECIALIZED_CLASSES = {
-    'normal'                                              => Normal,
-    'Aged Brie'                                           => Brie,
-    'Backstage passes to a TAFKAL80ETC concert'           => Backstage}
-  def self.for(quality, days_remaining)
-    klass_for(name).new(quality, days_remaining)
-  end
-
-  def self.klass_for(name)
-    (SPECIALIZED_CLASSES[name] || DEFAULT_CLASS).
-    new(quality, days_remaining)
-  end
-
   class Item
     attr_reader :quality, :days_remaining
 
@@ -36,7 +21,7 @@ module GildedRose
   end
 
   class Brie < Item
-    def tick
+    def brie_tick
       @days_remaining -= 1
       return if @quality >= 50
 
@@ -56,4 +41,30 @@ module GildedRose
       @quality += 1 if @days_remaining < 5
     end
   end
+
+  class Conjured < Item
+    def tick
+      @days_remaining -= 1
+      return if @quality == 0
+
+      @quality -= 2
+      @quality -= 2 if @days_remaining <= 0
+    end
+  end
+
+DEFAULT_CLASS = Item
+SPECIALIZED_CLASSES = {
+  'normal'                                              => Normal,
+  'Aged Brie'                                           => Brie,
+  'Backstage passes to a TAFKAL80ETC concert'           => Backstage
+  'Conjured Mana Cake'                                  => Conjured }
+
+  def self.for(quality, days_remaining)
+    klass_for(name).new(quality, days_remaining)
+  end
+
+  def self.klass_for(name)
+    (SPECIALIZED_CLASSES[name] || DEFAULT_CLASS).new(quality, days_remaining)
+  end
+
 end
